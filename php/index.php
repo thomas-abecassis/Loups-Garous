@@ -21,8 +21,11 @@
 </head>
 
 <body class=" grey lighten-3">
-  <div class="mainJeu">  
+  <div class="mainJeu">
+    <?php include("joueur.php"); ?>
   </div>
+
+
     <div class="chat">
       <fieldset>
        <legend>Un chat en jQuery</legend>
