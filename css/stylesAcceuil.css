@@ -1,0 +1,36 @@
+.test{
+	height:100vh;
+}
+
+
+footer{
+	height:8%;
+}
+
+.containeurOrange{
+	margin-bottom:0px;
+}
+
+.slider{
+	margin-top:0.75rem;
+}
+
+p{
+	margin-top:30px;
+	width: 60%;
+	margin-left:20%;
+	text-align: justify;
+
+}
+
+nav{
+	position:relative;
+	z-index:10;
+}
+
+
+html, body {
+padding : 0;
+margin : 0;
+height : 100%;
+}
