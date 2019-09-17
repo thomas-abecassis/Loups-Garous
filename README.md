@@ -1,7 +1,7 @@
 # Projet de Loups-Garous en ligne
 
 
-Participant :
+Participants :
 - Thomas Abecassis
 - Rémi Pires
 - Samuel Robinet
