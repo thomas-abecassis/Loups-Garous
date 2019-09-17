@@ -1,0 +1,32 @@
+.mainJeu{
+	position:absolute;
+	background-color:white;
+	position: absolute;
+    margin: auto;
+    bottom:0;
+    top: 0;
+    left: 0;
+	width:60%;
+
+}
+
+.chat{
+	position:fixed;
+	right:10%; 
+   width: 30%;
+  height: 90%;}
+
+#conversation {
+  height: 80%;
+  border: black 1px solid;
+  background-color: #efecca;
+  overflow-x: hidden;
+  overflow-y: scroll; 
+  padding: 5px;
+  margin-left: 10px;
+}
+fieldset {
+  height:100%;
+  background-color: #e6e2af;
+  border: black 1px solid;
+}
