@@ -1,4 +1,4 @@
-
+Splitting();
 
       $(function() {
     afficheConversation();

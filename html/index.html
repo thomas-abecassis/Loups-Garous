@@ -5,6 +5,7 @@
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+ 
 
 
   <!--Import Google Icon Font-->
@@ -24,14 +25,26 @@
   <header>
     <nav id="menu">
       <div  class="nav-wrapper  grey darken-4 fixe">
+        <div class="container">
+
         <a href="#index.html" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <a href="#" class="sidebar-trigger" data-target="mobile-links">
+          <i class="materialize-icons">menu</i>
+        <ul id="nav-mobile" class="right hide-on-med-and-down"> 
           <li><a href="#index.html">Acceuil</a></li>
           <li><a href="#">Connexion</a></li>
           <li><a href="#">Inscription</a></li>
         </ul>
+       </div>
       </div>
     </nav>
+
+    <ul class="sidenav" id="mobile-links">
+      <li><a href="#index.html">Acceuil</a></li>
+      <li><a href="#">Connexion</a></li>
+      <li><a href="#">Inscription</a></li>
+    </ul>
+
   </header>
 
  <!-- Premiere page -->
@@ -39,7 +52,7 @@
     <div class="pageone">
       <div id="font">
 
-        <p> sjhsjhkh </p>
+        <h2  >Mais faites attention la nuit</h2>
  <!--
   <content >
     <div class="row containeurOrange">
@@ -95,6 +108,10 @@
 
   $(document).ready(function(){
     $('.slider').slider();
+  });
+
+  $(document).ready(function(){
+    $('sidenav').sidenav();
   });
 </script>
 </body>

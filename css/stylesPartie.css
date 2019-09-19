@@ -16,27 +16,6 @@
    width: 30%;
   height: 90%;}
 
-/* pour la premier page */
-.pageone{
-    width: 100%;
-    height: 100%;
-   
-}
-/* image de font premiere page */
-.font{
-    background: url(./images/font.jpg)!important ;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-}
-
-#font{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-       
-  }
 
 #conversation {
   height: 80%;
