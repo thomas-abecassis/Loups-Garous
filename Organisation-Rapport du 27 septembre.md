@@ -9,6 +9,7 @@ La conception de Rémi est choisi pour le premier prototype en
 - Faire un planning 
 - JQuery Ajase tchat etc..
 - Comment stalker le tchat ? Fichier  txt ou BD ?
+- Prototype
 
 ## Repartition des tâches
 
