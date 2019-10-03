@@ -30,9 +30,9 @@
       <fieldset>
        <legend>Un chat en jQuery</legend>
         <div id="conversation"></div>
-        <form action="../php/chat.php" method="post">
-          <input type="text" id="nom" value="pseudo" size="6">
-          <input type="text" id="message" size="27">
+        <form id="formChat" action="../php/chat.php" method="post">
+          <input id="test" type="text" id="nom" value="pseudo" size="6">
+          <input id="test2" type="text" id="message" size="27">
           <button type="button" id="envoyer" title="Envoyer"></button>
         </form>
       </fieldset>
@@ -41,5 +41,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="../js/chat.js"></script>
+<script src="../js/test.js"></script>
 </body>
 </html>
