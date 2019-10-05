@@ -34,3 +34,17 @@ padding : 0;
 margin : 0;
 height : 100%;
 }
+
+/*bouton*/
+nav ul li .nav-sign-up {
+    z-index: 0;
+    margin-left: 15px;
+    padding: 0 15px;
+    line-height: 33px;
+    letter-spacing: .5px;
+    font-weight: 500;
+    background-color: white;
+    border: 2px solid white;
+    color: #F62D51;
+    border-radius: 90px;
+}
