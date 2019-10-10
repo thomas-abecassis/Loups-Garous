@@ -10,15 +10,22 @@
 <body>
 
   <div id="coucou">
-    <form method="post" action="traitement.php">
-        <input type="text" name="pseudo" id="nom" placeholder="Ex : Zozor" size="30" maxlength="10" />
-        <input id="bouton" type="button" value="Bouton cliquer">
+    <form method="post" >
+        <input type="text" name="pseudo" id="nomChat" placeholder="Chat" size="30" maxlength="10" />
+        <input id="boutonChat" type="button" value="Bouton cliquer">
+    </form>
+
+      <form method="post" >
+        <input type="text" name="pseudo" id="nomJeu" placeholder="Jeu" size="30" maxlength="10" />
+        <input id="boutonJeu" type="button" value="Bouton cliquer">
     </form>
 
   </div>
   <div id="contenu"></div>
 
   <div id="chat" style="width : 500px; height : 500px; border :3px solid"></div>
+  Le superbe jeu du compteur :
+  <div id="jeu" style="width : 200px; height : 200px; border :3px solid"></div>
 
 
 
