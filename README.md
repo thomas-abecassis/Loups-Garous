@@ -12,3 +12,5 @@ Participants :
 - Hugo Bec
 
 # But du projet :
+
+Coder un Loup-Garou en ligne
