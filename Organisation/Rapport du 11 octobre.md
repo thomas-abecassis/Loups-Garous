@@ -9,14 +9,14 @@
       
       La fonction asynx et await.
 
--Prototype Python :
+- Prototype Python :
 
-      Implémentation des nouveaux rôles
+      Implémentation des nouveaux rôles.
       
-      Voir .json avec le code 
+      Voir .json avec le code.
       
-      Créer un enregistrement en format json sur python 
+      Créer un enregistrement en format json sur python.
 
--Autre :
+- Autre :
 
-      Pourquoi on a choisi python  ? A mettre dans le rapport
+      Pourquoi on a choisi python  ? A mettre dans le rapport.
