@@ -1,0 +1,32 @@
+.mainJeu{
+	width:50%; 
+	height:70%;
+	background-color:#e0e0e0;
+	border:solid 3px black;
+	margin-left:25%;
+}
+
+.joueur{
+	background-color:grey;
+	margin-top:5px;
+	margin-left:5px;
+	float:left;
+	width:24%;
+	height:32%;
+	border:solid 3px black;
+}
+
+/* vivant et mort rajojuté par le javascript */
+.vivant{
+	background-color:green;
+}
+
+.mort{
+	background-color:red !important;
+}
+
+html,body{
+	width:100%;
+	height:100%;
+	padding:0;
+}
