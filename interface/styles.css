@@ -1,9 +1,10 @@
 .mainJeu{
 	width:50%; 
 	height:70%;
+	margin-left:25%;
 	background-color:#e0e0e0;
 	border:solid 3px black;
-	margin-left:25%;
+	
 }
 
 .joueur{
@@ -25,8 +26,11 @@
 	background-color:red !important;
 }
 
+
+
 html,body{
 	width:100%;
 	height:100%;
 	padding:0;
+	margin:0;
 }
