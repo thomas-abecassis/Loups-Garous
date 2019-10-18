@@ -12,7 +12,9 @@ var json={
 	{"nom" : "10","role" : "role10", "etat" : "vivant"},
 	{"nom" : "11","role" : "role11", "etat" : "vivant"},
 	{"nom" : "12","role" : "role12", "etat" : "mort"}
-	]
+	],
+	"nbJours":"1",
+	"roleTour":"voyante",
 };
 
 
@@ -36,6 +38,10 @@ function majJoueurs(json){
 
 		joueur.className+=" "+json.joueurs[i].etat;
 	}
+	var div=document.getElementById("nbJours");
+	div.innerHTML="jour : "+json.nbJours;
+	div=document.getElementById("tourRole");
+	div.innerHTML="au tour de : " + json.roleTour;
 }
 
 

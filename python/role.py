@@ -1,5 +1,7 @@
 class Role(object):
-    def inviter(personne):
+    """docstring for Role."""
+
+    def pouvoir(self):
         raise NotImplementedError("You must implement foo's %s method" % type(self).__name__)
-    def manger(personne):
+    def devoileRole(self):
         raise NotImplementedError("You must implement foo's %s method" % type(self).__name__)

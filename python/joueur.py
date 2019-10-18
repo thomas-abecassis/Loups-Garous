@@ -20,7 +20,7 @@ class Joueur(object):
         return (self.nom)
 
     def printJoueur(self):
-        print ("Je suis", self.nom, "et je suis un(e)", self.role.__class__.__name__)
+        print("Je suis " + self.nom + " et je suis un(e) " + self.role.__class__.__name__)
 
     def mourir(self):
         print(self.nom + " est mort et il etait " + self.role.__class__.__name__)
