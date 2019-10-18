@@ -1,6 +1,7 @@
 import random
 import lg
 import sv
+import voyante as vovo
 
 class Joueur(object):
     """docstring for Joueur."""
@@ -9,6 +10,8 @@ class Joueur(object):
         self.nom = nom
         if (role == "LG"):
             self.role = lg.LoupGarou()
+        elif (role == "Voyante"):
+            self.role = vovo.Voyante()
         else:
             self.role = sv.SV()
         self.vivant = True
@@ -20,10 +23,10 @@ class Joueur(object):
         return (self.nom)
 
     def printJoueur(self):
-        print("Je suis " + self.nom + " et je suis un(e) " + self.role.__class__.__name__)
+        print("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
 
     def mourir(self):
-        print(self.nom + " est mort et il etait " + self.role.__class__.__name__)
+        print(self.nom + " est mort et il etait " + self.role.devoile())
         self.vivant = False
 
     def voter(self, vivant):

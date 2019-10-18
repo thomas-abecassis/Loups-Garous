@@ -28,6 +28,9 @@ class Partie(object):
         while (self.isFinished() == False):
             print("\nNuit " + str(i) + "\n")
             mort = self.voteLG()
+            vovo = self.getVovo(self.alive)
+            if (vovo != None):
+                vovo.role.pouvoir(self.alive)
             print("\nJour " + str(i) + "\n")
             self.revelerMorts(mort)
             self.updateGame()
@@ -70,19 +73,19 @@ class Partie(object):
             vote.append(player.voter(self.alive))
         suspect = self.majorite(vote)
         if (len(suspect) == 1):
-            print("Le Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
+            print("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
             return (suspect)
         else:
-            print("Second tour de vote")
+            print("\nSecond tour de vote")
             vote = []
             for player in self.alive:
                 vote.append(player.voter(suspect))
             suspect = self.majorite(vote)
             if (len(suspect) == 1):
-                print("Le Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
+                print("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
                 return (suspect)
             else:
-                print("Le Village ne s'est pas mis d'accord : Aucun bûcher")
+                print("\nLe Village ne s'est pas mis d'accord : Aucun bûcher")
         return ([])
 
     #Effectue le vote des LG
@@ -92,10 +95,10 @@ class Partie(object):
             vote.append(player.role.manger(player.nom, self.vill))
         suspect = self.majorite(vote)
         if (len(suspect) == 1):
-            print("Les Loups-Garous ont décidés de manger " + suspect[0].nom)
+            print("\nLes Loups-Garous ont décidés de manger " + suspect[0].nom + "\n")
             return (suspect)
         else:
-            print("Les Loups-Garous ne se sont pas mis d'accord et ne mangeront personne")
+            print("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
             return ([])
 
     #Revele les morts de la nuit et les morts du vote
@@ -132,6 +135,12 @@ class Partie(object):
                 vill.append(player)
         return (vill)
 
+    def getVovo(self, list):
+        vovo = None
+        for player in list:
+            if (player.role.__class__.__name__ == "Voyante"):
+                vovo = player
+        return (vovo)
     #Retourne tout les joueurs vivants
     def getAlive(self, list):
         alive = []

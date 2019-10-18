@@ -1,6 +1,6 @@
 import partie as p
 
 joueur = ["Remi", "Thomas", "Samuel", "Hugo", "Chollet"]
-role = ["LG", "SV", "SV", "LG" , "SV"]
+role = ["LG", "SV", "Voyante", "LG" , "SV"]
 partie = p.Partie(joueur, role)
 partie.playGame()
