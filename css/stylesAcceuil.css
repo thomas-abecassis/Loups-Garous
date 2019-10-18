@@ -48,6 +48,15 @@ nav ul li .nav-sign-up {
     /* height: 570px;*/
 }
 
+.font2{
+    background: url(../files/images/nuage2.svg)no-repeat center center;
+    width: 100%;
+    height: 100vh;
+    background-size : cover;
+    
+    /* height: 570px;*/
+}
+
 /* pour la premier page */
 .pageone{
     width: 100%;
@@ -70,8 +79,8 @@ nav ul li .nav-sign-up {
     background-color: rgba(0,0,0,0);
   }
 
-  #logo {
-    width: 70px;
+#logo {
+    width: 65px;
     left: 3%;
     margin-top: 0.5%;
     position: absolute;}
@@ -82,7 +91,7 @@ text-decoration: none;
 color: #fff;
 background-color: #030f33 ;
 text-align: center;
-letter-spacing: .5px;
+letter-spacing: 2px !important;
 -webkit-transition: background-color .2s ease-out;
 transition: background-color .2s ease-out;
 cursor: pointer;
@@ -94,22 +103,100 @@ height: 36px;
 text-transform: uppercase;
 vertical-align: middle;
 -webkit-tap-highlight-color: transparent;
+
 }
 .bouton{background-color: white;}
 
 .bouton:hover {background-color:#030f33 ;}
 
+.centrer{
+    text-align: center;
+}
+.blanc{
+    color:white;
+}
+.textegris{
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #717171;
+}
 
+.titre {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: #1f1f2e;
+    text-transform: uppercase;
+}
+.cardContent{
+    position: relative;     
+    padding: 35px 45px;
+    border-radius: 45px; 
+    margin: .5rem 0 1rem 0;
+    background-color: white;
+   
+}
+
+.bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(to right, 
+      rgba(243, 68, 68, 0) 0%, 
+      rgba(243, 68, 68, 0) 3%,
+      #F62D51 40%,
+      #F62D51 60%,
+      rgba(243, 68, 68, 0) 97%,
+      rgba(243, 68, 68, 0) 100%); }
+
+.masque{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 210px;
+    height: 5px;
+    background-color: white;
+}
+
+.boxinscription{
+    position: relative;
+    margin-top: 22px;
+}
+
+.register {
+    position: relative;
+    display: block;
+    width: 180px;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 100px;
+    background-color: #F62D51;
+    color: #423e2f;
+    text-shadow: 0px 1px 0 rgba(247, 50, 86, 0.39);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2.3px;
+    text-transform: uppercase;
+    transition: all .3s;
+    box-shadow: 0 2px 15px 0 rgba(243,210,68,0.4);
+    cursor: pointer;
+}
 
 /* INSCRIPTION */
 
-#questions{
+#info{
     margin-top: 200px;
     position: relative;
     z-index: 2;
     
   }
-h3{
-    color:white
-}
+
   
