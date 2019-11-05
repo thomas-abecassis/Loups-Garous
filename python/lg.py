@@ -1,3 +1,5 @@
+import role
+
 class LoupGarou(object):
     """docstring for LoupGarou."""
     def __init__(self):
@@ -11,3 +13,9 @@ class LoupGarou(object):
         mort = vill[choix]
         print(nom + " veux manger " + mort.nom)
         return (mort)
+
+    def devoile(self):
+        return ("Loup-Garou");
+
+    def pouvoir(self):
+        pass
