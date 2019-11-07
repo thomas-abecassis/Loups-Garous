@@ -37,20 +37,6 @@ html,body{
 	margin:0;
 }
 
-  /* Menu */
-  #menu{
-    position: fixed;
-    z-index: 100;
-    /*background-color: rgba(0,0,0,0);*/
-    background-color: rgba(243, 68, 68, 0);
-  }
-
-#logo {
-    width: 65px;
-    left: 3%;
-    margin-top: 0.5%;
-    position: absolute;}
-
 
 .imagefont{
     background: url(../files/images/paysage.svg)no-repeat center center;
@@ -79,3 +65,9 @@ input[type="button" i]{
 	width: 100%;
 	padding: 4px;
 }
+
+#menu {
+    position: fixed;
+    z-index: 100;
+    /* background-color: rgba(0,0,0,0); */
+    background-color: rgba(3, 34, 51, 0.7)!important;
