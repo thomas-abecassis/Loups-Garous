@@ -5,17 +5,15 @@ class LoupGarou(object):
     def __init__(self):
         super(LoupGarou, self).__init__()
 
-    def manger(self,nom, vill):
-        print(vill)
-        choix = int(input("Voter contre (index): "))
-        while (choix >= len(vill) or choix < 0):
-            choix = int(input("Voter contre (index): "))
-        mort = vill[choix]
-        print(nom + " veux manger " + mort.nom)
-        return (mort)
+    def manger(self, joueur, partie):
+        partie.interface.afficher(partie.vill)
+        partie.interface.afficher("Voter contre (index): ")
+        choix = partie.interface.faireChoix(partie.vill)
+        partie.interface.afficher(joueur.nom + " veux manger " + choix.nom)
+        return (choix)
 
     def devoile(self):
         return ("Loup-Garou");
 
-    def pouvoir(self):
+    def pouvoir(self, partie):
         pass

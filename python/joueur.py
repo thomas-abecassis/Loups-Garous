@@ -2,7 +2,7 @@ import random
 import lg
 import sv
 import voyante as vovo
-import chasseur 
+import chasseur
 
 class Joueur(object):
     """docstring for Joueur."""
@@ -25,20 +25,19 @@ class Joueur(object):
     def __str__(self):
         return (self.nom)
 
-    def printJoueur(self):
-        print("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
+    def printJoueur(self, partie):
+        partie.interface.afficher("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
 
-    def mourir(self):
-        print(self.nom + " est mort et il etait " + self.role.devoile())
+    def mourir(self, partie):
+        partie.interface.afficher(self.nom + " est mort et il etait " + self.role.devoile())
         self.vivant = False
+        partie.interface.mettreAJour(partie)
         if self.role.devoile() == "Chasseur":
-            self.role.pouvoir(alive)
+            self.role.pouvoir(partie)
 
-    def voter(self, vivant):
-        print(vivant)
-        choix = int(input("Voter contre (index): "))
-        while (choix >= len(vivant) or choix < 0):
-            choix = int(input("Voter contre (index): "))
-        mort = vivant[choix]
-        print(self.nom + " a vote contre " + mort.nom)
-        return (mort)
+    def voter(self, partie):
+        partie.interface.afficher(partie.alive)
+        partie.interface.afficher("Voter contre (index): ")
+        choix = partie.interface.faireChoix(partie.alive)
+        partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
+        return (choix)
