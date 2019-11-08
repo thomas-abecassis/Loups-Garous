@@ -3,13 +3,12 @@
 
 import random
 import joueur as j
-import intCons as IC
 
 class Partie(object):
     """docstring for Partie."""
-    def __init__(self, players, roles):
+    def __init__(self, interface, players, roles):
         super(Partie, self).__init__()
-        self.interface = IC.IntCons()
+        self.interface = interface
         self.playerbase = self.distribRole(players, roles)
 
         self.alive = self.getAlive(self.playerbase)
@@ -77,7 +76,7 @@ class Partie(object):
             vote = self.interface.faireVote(self, self.alive, vote)
             if (len(vote) == 1):
                 self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
-                return (suspect)
+                return (vote)
             else:
                 self.interface.afficher("\nLe Village ne s'est pas mis d'accord : Aucun bûcher")
         return ([])
