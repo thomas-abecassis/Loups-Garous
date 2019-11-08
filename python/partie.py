@@ -66,25 +66,17 @@ class Partie(object):
         else:
             return (False);
 
-
-
     #Effectue le vote du Village
     def voteVillage(self):
-        vote = []
-        for player in self.alive:
-            vote.append(player.voter(self))
-        suspect = self.majorite(vote)
-        if (len(suspect) == 1):
-            self.interface.afficher("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
-            return (suspect)
+        vote = self.interface.faireVote(self, self.alive, self.alive)
+        if (len(vote) == 1):
+            self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
+            return (vote)
         else:
             self.interface.afficher("\nSecond tour de vote")
-            vote = []
-            for player in self.alive:
-                vote.append(player.voter(suspect))
-            suspect = self.majorite(vote)
-            if (len(suspect) == 1):
-                self.interface.afficher("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
+            vote = self.interface.faireVote(self, self.alive, vote)
+            if (len(vote) == 1):
+                self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
                 return (suspect)
             else:
                 self.interface.afficher("\nLe Village ne s'est pas mis d'accord : Aucun bûcher")
@@ -92,13 +84,10 @@ class Partie(object):
 
     #Effectue le vote des LG
     def voteLG(self):
-        vote = []
-        for player in self.LG:
-            vote.append(player.role.manger(player, self))
-        suspect = self.majorite(vote)
-        if (len(suspect) == 1):
-            self.interface.afficher("\nLes Loups-Garous ont décidés de manger " + suspect[0].nom + "\n")
-            return (suspect)
+        vote = self.interface.faireVote(self, self.LG, self.vill)
+        if (len(vote) == 1):
+            self.interface.afficher("\nLes Loups-Garous ont décidés de manger " + vote[0].nom + "\n")
+            return (vote)
         else:
             self.interface.afficher("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
             return ([])
@@ -137,6 +126,7 @@ class Partie(object):
                 vill.append(player)
         return (vill)
 
+    #Returne la voyante si elle existe
     def getVovo(self, list):
         vovo = None
         for player in list:

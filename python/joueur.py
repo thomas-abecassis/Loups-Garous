@@ -35,9 +35,9 @@ class Joueur(object):
         if self.role.devoile() == "Chasseur":
             self.role.pouvoir(partie)
 
-    def voter(self, partie):
-        partie.interface.afficher(partie.alive)
+    def voter(self, partie, list):
+        partie.interface.afficher(list)
         partie.interface.afficher("Voter contre (index): ")
-        choix = partie.interface.faireChoix(partie.alive)
+        choix = partie.interface.faireChoix(list)
         partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
         return (choix)

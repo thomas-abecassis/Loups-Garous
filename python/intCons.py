@@ -15,3 +15,10 @@ class IntCons(object):
             choix = int(input())
         choix = list[choix]
         return (choix)
+
+    def faireVote(self, partie, votant, list):
+        vote = []
+        for player in votant:
+            vote.append(player.voter(partie, list))
+        vote = partie.majorite(vote)
+        return (vote)
