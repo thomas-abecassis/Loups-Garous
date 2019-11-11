@@ -11,16 +11,30 @@ socket.onmessage= function(s) {
     	chat=document.getElementById('chat');
         chat.innerHTML+="<div class=\"msgChat\" style=\" width=400px\">"+data.contenu+"</div>";
         break;
+    case 'jeu' :
+        jeu=document.getElementById('jeu');
+        jeu.innerHTML="<div class=\"msgChat\" style=\" width=50px\">"+"Compteur :"+data.contenu+"</div>";
+        break;
+
     }
 };
 
 function envoieMessageServeur(){
-	var bout=document.getElementById('bouton');
-	var inp=document.getElementById('nom');
+	var boutChat=document.getElementById('boutonChat');
+	var inpChat=document.getElementById('nomChat');
 
-	bout.onclick=function(){
-		socket.send(inp.value);
+	var boutJeu=document.getElementById('boutonJeu');
+	var inpJeu=document.getElementById('nomJeu');
+
+	boutChat.onclick=function(){
+		socket.send(JSON.stringify({type : "chat", contenu : inpChat.value}));
 	}
+
+	boutJeu.onclick=function(){
+		socket.send(JSON.stringify({type : "jeu", contenu : inpJeu.value}));
+	}
+
+
 }
 
 window.onload=envoieMessageServeur();

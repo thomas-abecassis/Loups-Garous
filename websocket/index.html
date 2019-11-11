@@ -1,28 +1,58 @@
-<!--
-* TODO (1) Essayez de reproduire le style du siteweb: "https://hencework.com/theme/matresume/". N'hesitez pas a voir la solution pour vous en inspirer.
--->
 <!DOCTYPE html>
+ <!-- Materialize: Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <link rel="stylesheet" type="text/css" href="../css/stylesAcceuil.css">
+
 <html>
 <head>
-  <title>Personal Website</title>
+  <title>Interface jeu</title>
   <meta charset="utf-8">
-
+  <link rel="stylesheet" type="text/css" href="styles.css">
 <body>
+  <header>
+    <nav   id="menu" class="nav-wraper"><!---->
 
-  <div id="coucou">
-    <form method="post" action="traitement.php">
-        <input type="text" name="pseudo" id="nom" placeholder="Ex : Zozor" size="30" maxlength="10" />
-        <input id="bouton" type="button" value="Bouton cliquer">
-    </form>
+      
+      <img href="#index.html" id="logo" src="https://cdn.pixabay.com/photo/2014/03/25/15/24/wolf-296748_1280.png"alt="Le logo.">
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="./index.html">Accueil</a></li>
+        <li><a href="./déconnexion.html">Déconnexion</a></li>
+      </ul>
+    
+  </nav>
+</header>
+<div class="imagefont">
+  <div class="page">
+    <div id="font">
+    
+    <div class= "boxDeDiscussion">
+      
+        <div id="contenu"></div>
 
+        <div id="chat"></div>
+        <div id="ecriture">
+            <form method="post" >
+                <input type="text" name="pseudo" id="nomChat" placeholder="Message" size="30" maxlength="10" />
+                <input id="boutonChat" type="button" value="envoyer">
+            </form>
+      
+          <form method="post" id="invisible" >
+                <input type="text" name="pseudo" id="nomJeu" placeholder="Jeu" size="30" maxlength="10" />
+                <input id="boutonJeu" type="button" value="Bouton cliquer">
+            </form>
+      
+        </div>
+      
+    </div>
+
+  <div id="invisible"> <!--Grand jeu-->
+  Le superbe jeu du compteur :
+  <div id="jeu"></div>
   </div>
-  <div id="contenu"></div>
 
-  <div id="chat" style="width : 500px; height : 500px; border :3px solid"></div>
-
-
-
-  <script src="script.js"></script>
-
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
