@@ -3,7 +3,7 @@ class IntCons(object):
     def __init__(self):
         super(IntCons, self).__init__()
 
-    def afficher(self, message):
+    async def afficher(self, message):
         print(message)
 
     def mettreAJour(self, partie):
@@ -16,9 +16,9 @@ class IntCons(object):
         choix = list[choix]
         return (choix)
 
-    def faireVote(self, partie, votant, list):
+    async def faireVote(self, partie, votant, list):
         vote = []
         for player in votant:
-            vote.append(player.voter(partie, list))
+            vote.append(await player.voter(partie, list))
         vote = partie.majorite(vote)
         return (vote)

@@ -1,13 +1,33 @@
+import asyncio
+
 class IntWeb(object):
     """docstring for IntWeb."""
-    def __init__(self):
+    def __init__(self,ws):
+        self.webSocket=ws
         super(IntWeb, self).__init__()
 
-    def afficher(self, message):
-        pass
-        #Code pour envoyer un message sur le tchat
-
+    async def afficher(self, message):
+        await self.webSocket.majChat(message)
+        
     def mettreAJour(self, partie):
-        #Update la data de la partie en background
         partie.updateGame()
-        #Envoyer les infos sur le web
+
+    def faireChoix(self, list):
+        choix = int(input())
+        while (choix >= len(list) or choix < 0):
+            choix = int(input())
+        choix = list[choix]
+        return (choix)
+
+    async def faireVote(self, partie, votant, list):
+        vote = []
+        for player in votant:
+            vote.append(await player.voter(partie, str(list)))
+        vote =  partie.majorite(vote)
+        return (vote)
+
+def str(list):
+    l=[]
+    for p in list:
+        l.append(p.__str__())
+    return l

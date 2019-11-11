@@ -25,19 +25,19 @@ class Joueur(object):
     def __str__(self):
         return (self.nom)
 
-    def printJoueur(self, partie):
-        partie.interface.afficher("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
+    async def printJoueur(self, partie):
+        await partie.interface.afficher("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
 
-    def mourir(self, partie):
-        partie.interface.afficher(self.nom + " est mort et il etait " + self.role.devoile())
+    async def mourir(self, partie):
+        await partie.interface.afficher(self.nom + " est mort et il etait " + self.role.devoile())
         self.vivant = False
         partie.interface.mettreAJour(partie)
         if self.role.devoile() == "Chasseur":
-            self.role.pouvoir(partie)
+            await self.role.pouvoir(partie)
 
-    def voter(self, partie, list):
-        partie.interface.afficher(list)
-        partie.interface.afficher("Voter contre (index): ")
+    async def voter(self, partie, list):
+        await partie.interface.afficher(list)
+        await partie.interface.afficher("Voter contre (index): ")
         choix = partie.interface.faireChoix(list)
-        partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
+        await partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
         return (choix)
