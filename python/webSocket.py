@@ -5,11 +5,9 @@ import websockets
 import partie as p
 import intCons as IC
 import intWeb as IW
-
+import time
 
 class WebSocket(object) :
-
-
 
 
     async def register(self,websocket):
@@ -18,11 +16,11 @@ class WebSocket(object) :
 
     async def majChat(self,message):
         if(not self.partieLancee):
+            loop = asyncio.get_event_loop()
+            loop.create_task(self.partie.playGame())
             self.partieLancee=True
-            await self.partie.playGame()
         mes=json.dumps({"type":"chat","contenu" : message})
         await asyncio.wait([utilisateur.send(mes) for utilisateur in self.Utilisateur])
-
 
     async def unregister(self,websocket):
         global tour
@@ -71,15 +69,26 @@ class WebSocket(object) :
                 data = json.loads(message)
                 if data["type"]=="chat":
                     await self.majChat(data["contenu"])
+                    self.chat.append(data["contenu"])
+                    print(self.chat)
                 elif data["type"]=="jeu":
                     await self.jeu(websocket,int(data["contenu"]))
         finally:
             await self.unregister(websocket)
 
+    def getChat(self):
+        return self.chat
 
+    async def getChoix(self):
+        while (not representsInt(self.chat[len(self.chat)-1])):
+            await asyncio.sleep(0.5)
+        temp=self.chat[len(self.chat)-1]
+        self.chat[len(self.chat)-1]="a"
+        return temp
 
 
     def __init__(self):
+        self.chat=[]
         self.Utilisateur=[]
         self.tour=0
         self.compteur=0
@@ -93,5 +102,12 @@ class WebSocket(object) :
 
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
+
+def representsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 test=WebSocket()

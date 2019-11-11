@@ -9,5 +9,5 @@ class Voyante(object):
     async def pouvoir(self, partie):
         await partie.interface.afficher(partie.aliveToStr())
         await partie.interface.afficher("Sonder qui (index): ")
-        choix = partie.interface.faireChoix(partie.alive)
+        choix = await partie.interface.faireChoix(partie.alive)
         await partie.interface.afficher("La voyante a sonde un " + choix.role.devoile())

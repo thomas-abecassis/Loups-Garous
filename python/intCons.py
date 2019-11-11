@@ -9,7 +9,7 @@ class IntCons(object):
     def mettreAJour(self, partie):
         partie.updateGame()
 
-    def faireChoix(self, list):
+    async def faireChoix(self, list):
         choix = int(input())
         while (choix >= len(list) or choix < 0):
             choix = int(input())
