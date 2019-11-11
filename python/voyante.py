@@ -6,10 +6,8 @@ class Voyante(object):
     def devoile(self):
         return ("Voyante");
 
-    def pouvoir(self, alive):
-        print(alive)
-        choix = int(input("Sonder (index): "))
-        while (choix >= len(alive) or choix < 0):
-            choix = int(input("Sonder (index): "))
-        sonde = alive[choix]
-        print("La voyante a sonde un " + sonde.role.devoile())
+    async def pouvoir(self, partie):
+        await partie.interface.afficher(partie.aliveToStr())
+        await partie.interface.afficher("Sonder qui (index): ")
+        choix = await partie.interface.faireChoix(partie.alive)
+        await partie.interface.afficher("La voyante a sonde un " + choix.role.devoile())

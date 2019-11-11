@@ -3,56 +3,18 @@
 
 import random
 import joueur as j
+import asyncio 
 
 class Partie(object):
     """docstring for Partie."""
-    def __init__(self, players, roles):
+    def __init__(self, interface, players, roles):
         super(Partie, self).__init__()
+        self.interface = interface
         self.playerbase = self.distribRole(players, roles)
+
         self.alive = self.getAlive(self.playerbase)
         self.LG = self.getLG(self.alive)
         self.vill = self.getVillage(self.alive)
-        print(self.playerbase)
-
-    #Met à jour les listes de joueurs
-    def updateGame(self):
-        self.alive = self.getAlive(self.playerbase)
-        self.LG = self.getLG(self.alive)
-        self.vill = self.getVillage(self.alive)
-
-    #Lance une partie
-    def playGame(self):
-        self.printAllJoueur(self.playerbase)
-        print("\nLa partie commence!")
-        i = 0
-        while (self.isFinished() == False):
-            print("\nNuit " + str(i) + "\n")
-            mort = self.voteLG()
-            vovo = self.getVovo(self.alive)
-            if (vovo != None):
-                vovo.role.pouvoir(self.alive)
-            print("\nJour " + str(i) + "\n")
-            self.revelerMorts(mort)
-            self.updateGame()
-            if (self.isFinished() == False):
-                mort = self.voteVillage()
-                self.revelerMorts(mort)
-                self.updateGame()
-            i = i + 1
-
-        if (len(self.alive) == 0):
-            print("\nPersonne a gagné")
-        elif (len(self.LG) == 0):
-            print("\nLes Villageois ont gagné!")
-        elif (len(self.vill) == 0):
-            print("\nLes Loups-Garous ont gagné!")
-
-    #Determine si la partie de LG est finie
-    def isFinished(self):
-        if (len(self.LG) == 0 or len(self.vill) == 0):
-            return (True)
-        else:
-            return (False);
 
     #Distribue les rôles
     def distribRole(self, joueur, role):
@@ -66,45 +28,74 @@ class Partie(object):
             role.remove(role[b])
         return (distrib)
 
-    #Effectue le vote du Village
-    def voteVillage(self):
-        vote = []
-        for player in self.alive:
-            vote.append(player.voter(self.alive))
-        suspect = self.majorite(vote)
-        if (len(suspect) == 1):
-            print("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
-            return (suspect)
+    #Lance une partie
+    async def playGame(self):
+        await self.printAllJoueur(self.playerbase)
+        await self.interface.afficher("\nLa partie commence!")
+        self.interface.mettreAJour(self)
+        i = 0
+        while (self.isFinished() == False):
+            await self.interface.afficher("\nNuit " + str(i) + "\n")
+            mort = await self.voteLG()
+            vovo = self.getVovo(self.alive)
+            if (vovo != None):
+                await vovo.role.pouvoir(self)    
+                await self.interface.afficher("\nJour " + str(i) + "\n")
+            await self.revelerMorts(mort)
+            self.interface.mettreAJour(self)
+            if (self.isFinished() == False):
+                mort = await self.voteVillage()
+                await self.revelerMorts(mort)
+                self.interface.mettreAJour(self)
+            i = i + 1
+        await self.victoire()
+
+    #Détermine la victoire
+    async def victoire(self):
+        if (len(self.alive) == 0):
+            await self.interface.afficher("\nPersonne a gagné")
+        elif (len(self.LG) == 0):
+            await self.interface.afficher("\nLes Villageois ont gagné!")
+        elif (len(self.vill) == 0):
+            await self.interface.afficher("\nLes Loups-Garous ont gagné!")
+
+    #Determine si la partie de LG est finie
+    def isFinished(self):
+        if (len(self.LG) == 0 or len(self.vill) == 0):
+            return (True)
         else:
-            print("\nSecond tour de vote")
-            vote = []
-            for player in self.alive:
-                vote.append(player.voter(suspect))
-            suspect = self.majorite(vote)
-            if (len(suspect) == 1):
-                print("\nLe Village a décidé d'éliminer " + suspect[0].nom + " et leur sentence est irrévocable")
-                return (suspect)
+            return (False);
+
+    #Effectue le vote du Village
+    async def voteVillage(self):
+        vote = await self.interface.faireVote(self, self.alive, self.alive)
+        if (len(vote) == 1):
+            await self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
+            return (vote)
+        else:
+            await self.interface.afficher("\nSecond tour de vote")
+            vote = await self.interface.faireVote(self, self.alive, vote)
+            if (len(vote) == 1):
+                await self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
+                return (vote)
             else:
-                print("\nLe Village ne s'est pas mis d'accord : Aucun bûcher")
+                await self.interface.afficher("\nLe Village ne s'est pas mis d'accord : Aucun bûcher")
         return ([])
 
     #Effectue le vote des LG
-    def voteLG(self):
-        vote = []
-        for player in self.LG:
-            vote.append(player.role.manger(player.nom, self.vill))
-        suspect = self.majorite(vote)
-        if (len(suspect) == 1):
-            print("\nLes Loups-Garous ont décidés de manger " + suspect[0].nom + "\n")
-            return (suspect)
-        else:
-            print("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
-            return ([])
+    async def voteLG(self):
+            vote = await self.interface.faireVote(self, self.LG, self.vill)
+            if (len(vote) == 1):
+                await self.interface.afficher("\nLes Loups-Garous ont décidés de manger " + vote[0].nom + "\n")
+                return (vote)
+            else:
+                await self.interface.afficher("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
+                return ([])
 
     #Revele les morts de la nuit et les morts du vote
-    def revelerMorts(self, mort):
+    async def revelerMorts(self, mort):
         for player in mort:
-            player.mourir()
+            await player.mourir(self)
 
     #Definit la majorite des votes et prend en compte les possibles egalites
     def majorite(self, list):
@@ -135,22 +126,36 @@ class Partie(object):
                 vill.append(player)
         return (vill)
 
+    #Returne la voyante si elle existe
     def getVovo(self, list):
         vovo = None
         for player in list:
             if (player.role.__class__.__name__ == "Voyante"):
                 vovo = player
         return (vovo)
+
     #Retourne tout les joueurs vivants
     def getAlive(self, list):
         alive = []
         for player in list:
             if (player.vivant == True):
-                #print("" + player.nom + " est encore vivant")
                 alive.append(player)
         return (alive)
 
+    def aliveToStr(self):
+        alive=self.alive
+        aliveStr=[]
+        for p in alive:
+            aliveStr.append(p.__str__())
+        return aliveStr
+
     #Affiche tout les joueurs
-    def printAllJoueur(self, playerbase):
-        for player in playerbase:
-            player.printJoueur()
+    async def printAllJoueur(self, playerbase):   
+        for player in playerbase: 
+            await player.printJoueur(self)
+
+    #Fonction interne de MaJ
+    def updateGame(self):
+        self.alive = self.getAlive(self.playerbase)
+        self.LG = self.getLG(self.alive)
+        self.vill = self.getVillage(self.alive)

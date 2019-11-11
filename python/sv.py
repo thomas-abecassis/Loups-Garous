@@ -6,5 +6,5 @@ class SV(object):
     def devoile(self):
         return ("Simple Villageois");
 
-    def pouvoir(self):
+    def pouvoir(self, partie):
         pass;

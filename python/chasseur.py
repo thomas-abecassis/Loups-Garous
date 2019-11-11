@@ -1,3 +1,4 @@
+#Pas encore en etat de marche
 class Chasseur(object):
     """docstring for Chasseur."""
     def __init__(self):
@@ -6,11 +7,15 @@ class Chasseur(object):
     def devoile(self):
         return ("Chasseur");
 
-    def pouvoir(self, alive):
-        print(alive)
-        choix = int(input("Sonder (index): "))
-        while (choix >= len(alive) or choix < 0):
-            choix = int(input("Sonder (index): "))
-        sonde = alive[choix]
-        print("Le chasseur entraine dans sa mort " + sonde)
-        sonde.mourir()
+    async def pouvoir(self, partie):
+        await partie.interface.afficher(str(partie.alive))
+        await partie.interface.afficher("Tirer sur qui? (index)")
+        choix = await partie.interface.faireChoix(partie.alive)
+        await partie.interface.afficher("Le chasseur entraine dans sa mort " + choix.nom)
+        await choix.mourir(partie)
+        
+def str(list):
+    l=[]
+    for p in list:
+        l.append(p.__str__())
+    return l

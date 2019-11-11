@@ -1,6 +1,14 @@
 import partie as p
+import intCons as IC
 
-joueur = ["Remi", "Thomas", "Samuel", "Hugo", "Chollet"]
-role = ["LG", "Chasseur", "Voyante", "LG" , "SV"]
-partie = p.Partie(joueur, role)
-partie.playGame()
+import asyncio
+
+interface = IC.IntCons()
+joueur = ["Remi", "Thomas", "Samuel", "Hugo", "Chollet", "Arnaud"]
+role = ["LG", "SV", "Voyante", "LG" , "SV", "Chasseur"]
+partie = p.Partie(interface, joueur, role)
+
+loop = asyncio.get_event_loop()
+
+loop.run_until_complete(partie.playGame())
+

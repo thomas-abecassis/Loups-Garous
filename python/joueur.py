@@ -2,7 +2,7 @@ import random
 import lg
 import sv
 import voyante as vovo
-import chasseur 
+import chasseur
 
 class Joueur(object):
     """docstring for Joueur."""
@@ -25,20 +25,25 @@ class Joueur(object):
     def __str__(self):
         return (self.nom)
 
-    def printJoueur(self):
-        print("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
+    async def printJoueur(self, partie):
+        await partie.interface.afficher("Je suis " + self.nom + " et je suis un(e) " + self.role.devoile())
 
-    def mourir(self):
-        print(self.nom + " est mort et il etait " + self.role.devoile())
+    async def mourir(self, partie):
+        await partie.interface.afficher(self.nom + " est mort et il etait " + self.role.devoile())
         self.vivant = False
+        partie.interface.mettreAJour(partie)
         if self.role.devoile() == "Chasseur":
-            self.role.pouvoir(alive)
+            await self.role.pouvoir(partie)
 
-    def voter(self, vivant):
-        print(vivant)
-        choix = int(input("Voter contre (index): "))
-        while (choix >= len(vivant) or choix < 0):
-            choix = int(input("Voter contre (index): "))
-        mort = vivant[choix]
-        print(self.nom + " a vote contre " + mort.nom)
-        return (mort)
+    async def voter(self, partie, list):
+        await partie.interface.afficher(str(list))
+        await partie.interface.afficher("Voter contre (index): ")
+        choix = await partie.interface.faireChoix(list)
+        await partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
+        return (choix)
+    
+def str(list):
+    l=[]
+    for p in list:
+        l.append(p.__str__())
+    return l
