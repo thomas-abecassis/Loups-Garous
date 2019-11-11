@@ -74,7 +74,7 @@ class Partie(object):
             return (vote)
         else:
             await self.interface.afficher("\nSecond tour de vote")
-            vote = self.interface.faireVote(self, self.alive, vote)
+            vote = await self.interface.faireVote(self, self.alive, vote)
             if (len(vote) == 1):
                 await self.interface.afficher("\nLe Village a décidé d'éliminer " + vote[0].nom + " et leur sentence est irrévocable")
                 return (vote)
