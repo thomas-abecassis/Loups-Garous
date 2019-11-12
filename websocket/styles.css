@@ -70,4 +70,22 @@ input[type="button" i]{
     position: fixed;
     z-index: 100;
     /* background-color: rgba(0,0,0,0); */
-    background-color: rgba(3, 34, 51, 0.7)!important;
+	background-color: #030f3300 !important;
+}
+.Ascroll::-webkit-scrollbar {
+	width: 10px;
+  }
+   
+.Ascroll::-webkit-scrollbar-thumb {
+	background: #666;
+	border-radius: 20px;
+  }
+  
+.Ascroll::-webkit-scrollbar-track {
+	background: #ddd;
+	border-radius: 20px;
+  }
+
+.scroll{
+	overflow: auto;
+}
