@@ -31,9 +31,14 @@ class WebSocket(object) :
         except :
             pass
 
-    async def notifierUtilisateurs(self,):
+    async def notifierUtilisateurs(self):
         mes=json.dumps({"type":"nbUtilisateurs","contenu" : str(len(self.Utilisateur))})
         await asyncio.wait([utilisateur.send(mes) for utilisateur in self.Utilisateur])
+
+    async def majEtat(self,listeEtat):
+        mes=json.dumps({"type":"etatPartie","contenu" : {"jour" : self.partie.getJour(), "joueurs" : listeEtat}})
+        await asyncio.wait([utilisateur.send(mes) for utilisateur in self.Utilisateur])
+
 
     async def jeu(self,websocket,nb):
         global tour
@@ -85,6 +90,8 @@ class WebSocket(object) :
         temp=self.chat[len(self.chat)-1]
         self.chat[len(self.chat)-1]="a"
         return temp
+
+
 
 
     def __init__(self):

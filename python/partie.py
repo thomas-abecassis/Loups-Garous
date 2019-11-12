@@ -15,6 +15,7 @@ class Partie(object):
         self.alive = self.getAlive(self.playerbase)
         self.LG = self.getLG(self.alive)
         self.vill = self.getVillage(self.alive)
+        self.jour=False
 
     #Distribue les rôles
     def distribRole(self, joueur, role):
@@ -32,21 +33,25 @@ class Partie(object):
     async def playGame(self):
         await self.printAllJoueur(self.playerbase)
         await self.interface.afficher("\nLa partie commence!")
-        self.interface.mettreAJour(self)
+        await self.interface.mettreAJour(self)
         i = 0
         while (self.isFinished() == False):
             await self.interface.afficher("\nNuit " + str(i) + "\n")
+            self.jour=False
+            await self.interface.mettreAJour(self)
             mort = await self.voteLG()
             vovo = self.getVovo(self.alive)
             if (vovo != None):
                 await vovo.role.pouvoir(self)    
                 await self.interface.afficher("\nJour " + str(i) + "\n")
+                self.jour=True
+                await self.interface.mettreAJour(self)
             await self.revelerMorts(mort)
-            self.interface.mettreAJour(self)
+            await self.interface.mettreAJour(self)
             if (self.isFinished() == False):
                 mort = await self.voteVillage()
                 await self.revelerMorts(mort)
-                self.interface.mettreAJour(self)
+                await self.interface.mettreAJour(self)
             i = i + 1
         await self.victoire()
 
@@ -148,6 +153,9 @@ class Partie(object):
         for p in alive:
             aliveStr.append(p.__str__())
         return aliveStr
+
+    def getJour(self):
+        return self.jour
 
     #Affiche tout les joueurs
     async def printAllJoueur(self, playerbase):   
