@@ -7,39 +7,12 @@ footer{
 	height:8%;
 }
 
-
-
-
-
-
-
-nav{
-    height: 80px;
-}
-
-
 html, body {
 padding : 0;
 margin : 0;
 height : 100%;
 }
 
-nav ul a {
-    font-weight: 500;
-}
-/*bouton*/
-nav ul li .nav-sign-up {
-    z-index: 0;
-    margin-left: 15px;
-    padding: 0 15px;
-    line-height: 33px;
-    letter-spacing: .5px;
-    font-weight: 700;
-    /*background-color: white;*/
-    border: 2px solid #030f33;
-    color: #F62D51;
-    border-radius: 90px;
-}
 
 /* image de font premiere page */
 .font{
@@ -74,43 +47,6 @@ nav ul li .nav-sign-up {
        
   }
 
-
-  /* Menu */
-#menu{
-    position: fixed;
-    z-index: 100;
-    /*background-color: rgba(0,0,0,0);*/
-    background-color: rgba(243, 68, 68, 0);
-  }
-
-#logo {
-    width: 65px;
-    left: 3%;
-    margin-top: 0.5%;
-    position: absolute;}
-
-       
-.bouton {
-text-decoration: none;
-color: #fff;
-background-color: #030f33 ;
-text-align: center;
-letter-spacing: 2px !important;
-cursor: pointer;
-margin-top: -2px;
-margin-right: 15px;
-font-size: 14px;
-display: inline-block;
-height: 36px;
-text-transform: uppercase;
-vertical-align: middle;
--webkit-tap-highlight-color: transparent;
-
-}
-.bouton{background-color: white;}
-
-.bouton:hover {background-color:#030f33 ;}
-
 .centrer{
     text-align: center;
 }
@@ -142,6 +78,7 @@ vertical-align: middle;
    
 }
 
+/* Ligne rouge */
 .bar {
     position: absolute;
     top: 50%;
@@ -166,10 +103,19 @@ vertical-align: middle;
     background-color: white;
 }
 
+
+/* INSCRIPTION */
+
 .boxinscription{
     position: relative;
     margin-top: 22px;
 }
+#info{
+    margin-top: 200px;
+    position: relative;
+    z-index: 2;
+    
+  }
 
 .register {
     position: relative;
@@ -191,14 +137,3 @@ vertical-align: middle;
     box-shadow: 0 2px 15px 0 rgba(243,210,68,0.4);
     cursor: pointer;
 }
-
-/* INSCRIPTION */
-
-#info{
-    margin-top: 200px;
-    position: relative;
-    z-index: 2;
-    
-  }
-
-  

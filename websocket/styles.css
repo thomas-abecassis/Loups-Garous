@@ -20,6 +20,10 @@ div,from{
 	margin-right: 10%;
 }
 
+.msgChat{
+	width:400px;
+}
+
 #jeu{
 	width : 200px;
 	height : 200px; 
@@ -36,20 +40,6 @@ html,body{
 	padding:0;
 	margin:0;
 }
-
-  /* Menu */
-  #menu{
-    position: fixed;
-    z-index: 100;
-    /*background-color: rgba(0,0,0,0);*/
-    background-color: rgba(243, 68, 68, 0);
-  }
-
-#logo {
-    width: 65px;
-    left: 3%;
-    margin-top: 0.5%;
-    position: absolute;}
 
 
 #imagefont{
@@ -94,4 +84,30 @@ input[type="button" i]{
 	border-radius: 45px;
 	width: 100%;
 	padding: 4px;
+}
+
+#menu {
+    position: fixed;
+    z-index: 100;
+    /* background-color: rgba(0,0,0,0); */
+	background-color: #030f3300 !important;
+}
+
+/* Scroll */
+.Ascroll::-webkit-scrollbar {
+	width: 10px;
+  }
+   
+.Ascroll::-webkit-scrollbar-thumb {
+	background: #666;
+	border-radius: 20px;
+  }
+  
+.Ascroll::-webkit-scrollbar-track {
+	background: #ddd;
+	border-radius: 20px;
+  }
+
+.scroll{
+	overflow: auto;
 }
