@@ -33,13 +33,18 @@ socket.onmessage= function(s) {
                 i++;
             })
             }
-        if(data.contenu.jour==false){
-            document.getElementById('imagefont').style.background=background="url(../files/images/paysage.svg)no-repeat center center";      
-            }else{
-                document.getElementById('imagefont').style.background= "url(../files/images/shrek.jpg) no-repeat center center";
+        if(data.contenu.jour==false ){
+            if(document.getElementById('imagefondJour')===null){}
+            else{
+            document.getElementById('imagefondJour').id="imagefondNuit";}
+            }else {
+                if(document.getElementById('imagefondNuit')===null){}
+                else{
+                document.getElementById('imagefondNuit').id="imagefondJour";
+                }
             }
     }
-};
+}
 
 function envoieMessageServeur(){
 	var boutChat=document.getElementById('boutonChat');
