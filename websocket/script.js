@@ -15,7 +15,29 @@ socket.onmessage= function(s) {
         jeu=document.getElementById('jeu');
         jeu.innerHTML="<div class=\"msgChat\" style=\" width=50px\">"+"Compteur :"+data.contenu+"</div>";
         break;
-
+    case 'etatPartie':
+        console.log(data.contenu);
+        var nbJoueurs = document.getElementById("boxJoueurs").children.length;
+        if(nbJoueurs==0){
+            data.contenu.joueurs.forEach(function(joueur) {
+                document.getElementById('boxJoueurs').innerHTML+="<div class=\" joueur \">"+ joueur[0]+"</div>";
+            })}else{
+                var i=0;
+                var joueursHTML = document.getElementById("boxJoueurs");
+                data.contenu.joueurs.forEach(function(joueur) {
+                    if(joueur[1]){
+                        joueursHTML.children[i].className= "joueur vivant";
+                        }else{
+                            joueursHTML.children[i].className="joueur mort ";
+                        }
+                i++;
+            })
+            }
+        if(data.contenu.jour==false){
+            document.getElementById('imagefont').style.background=background="url(../files/images/paysage.svg)no-repeat center center";      
+            }else{
+                document.getElementById('imagefont').style.background= "url(../files/images/shrek.jpg) no-repeat center center";
+            }
     }
 };
 

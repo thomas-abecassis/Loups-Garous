@@ -31,7 +31,7 @@ class Joueur(object):
     async def mourir(self, partie):
         await partie.interface.afficher(self.nom + " est mort et il etait " + self.role.devoile())
         self.vivant = False
-        partie.interface.mettreAJour(partie)
+        await partie.interface.mettreAJour(partie)
         if self.role.devoile() == "Chasseur":
             await self.role.pouvoir(partie)
 

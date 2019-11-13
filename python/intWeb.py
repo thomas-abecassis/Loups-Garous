@@ -7,11 +7,11 @@ class IntWeb(object):
         super(IntWeb, self).__init__()
 
     async def afficher(self, message):
-        print (message)
         await self.webSocket.majChat(message)
         
-    def mettreAJour(self, partie):
+    async def mettreAJour(self, partie):
         partie.updateGame()
+        await self.webSocket.majEtat(getEtatsJoueurs(partie))
 
     async def faireChoix(self, list):
         choix=await self.webSocket.getChoix()
@@ -29,4 +29,12 @@ class IntWeb(object):
         vote =  partie.majorite(vote)
         return (vote)
 
-
+def getEtatsJoueurs(partie):
+    village=partie.playerbase
+    l=[]
+    for player in village : 
+        if (player.vivant):
+            l.append([player.role.__class__.__name__,True])
+        else :
+            l.append([player.role.__class__.__name__,False])
+    return l
