@@ -20,6 +20,10 @@ div,from{
 	margin-right: 10%;
 }
 
+.msgChat{
+	width:400px;
+}
+
 #jeu{
 	width : 200px;
 	height : 200px; 
@@ -88,6 +92,8 @@ input[type="button" i]{
     /* background-color: rgba(0,0,0,0); */
 	background-color: #030f3300 !important;
 }
+
+/* Scroll */
 .Ascroll::-webkit-scrollbar {
 	width: 10px;
   }
