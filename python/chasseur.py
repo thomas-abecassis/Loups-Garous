@@ -8,6 +8,7 @@ class Chasseur(object):
         return ("Chasseur");
 
     async def pouvoir(self, partie):
+        partie.prochainRole="Chasseur"
         await partie.interface.afficher(str(partie.alive))
         await partie.interface.afficher("Tirer sur qui? (index)")
         choix = await partie.interface.faireChoix(partie.alive)

@@ -16,9 +16,17 @@ class IntWeb(object):
     async def faireChoix(self, list):
         choix=await self.webSocket.getChoix()
         print("je fais un choix")
-        choix = int(choix)
+        try :
+            choix = int(choix)
+        except :
+            choix=-1
         while (choix >= len(list) or choix < 0):
-            choix = int(input)
+            choix=await self.webSocket.getChoix()
+            try :
+                choix = int(choix)
+            except :
+                choix =-1
+            await asyncio.sleep(0.5)
         choix = list[choix]
         return (choix)
 

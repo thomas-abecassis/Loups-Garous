@@ -12,6 +12,7 @@ class Partie(object):
         self.interface = interface
         self.playerbase = self.distribRole(players, roles)
 
+        self.prochainRole="LG"
         self.alive = self.getAlive(self.playerbase)
         self.LG = self.getLG(self.alive)
         self.vill = self.getVillage(self.alive)
@@ -39,6 +40,7 @@ class Partie(object):
             await self.interface.afficher("\nNuit " + str(i) + "\n")
             self.jour=False
             await self.interface.mettreAJour(self)
+            self.prochainRole="LoupGarou"
             mort = await self.voteLG()
             vovo = self.getVovo(self.alive)
             if (vovo != None):
@@ -49,6 +51,7 @@ class Partie(object):
             await self.revelerMorts(mort)
             await self.interface.mettreAJour(self)
             if (self.isFinished() == False):
+                self.prochainRole="Village"
                 mort = await self.voteVillage()
                 await self.revelerMorts(mort)
                 await self.interface.mettreAJour(self)

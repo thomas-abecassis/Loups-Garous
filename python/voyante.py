@@ -7,6 +7,7 @@ class Voyante(object):
         return ("Voyante");
 
     async def pouvoir(self, partie):
+        partie.prochainRole="Voyante"
         await partie.interface.afficher(partie.aliveToStr())
         await partie.interface.afficher("Sonder qui (index): ")
         choix = await partie.interface.faireChoix(partie.alive)
