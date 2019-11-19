@@ -1,6 +1,3 @@
-
-
-
 socket= new WebSocket('ws:/localhost:6790');
 
 socket.onmessage= function(s) {

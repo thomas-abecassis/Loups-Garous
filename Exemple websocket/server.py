@@ -5,8 +5,6 @@ import websockets
 
 class WebSocket(object) :
 
-
-
     async def register(self,websocket):
         self.Clients.append(websocket)
 
