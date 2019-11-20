@@ -107,20 +107,21 @@ input[type="button" i]{
 }
 
 /* Scroll */
-.Ascroll::-webkit-scrollbar {
+.stylescroll::-webkit-scrollbar {
 	width: 10px;
   }
    
-.Ascroll::-webkit-scrollbar-thumb {
+.stylescroll::-webkit-scrollbar-thumb {
 	background: #666;
 	border-radius: 20px;
   }
   
-.Ascroll::-webkit-scrollbar-track {
+.stylescroll::-webkit-scrollbar-track {
 	background: #ddd;
 	border-radius: 20px;
   }
 
-.scroll{
-	overflow: auto;
+.scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
