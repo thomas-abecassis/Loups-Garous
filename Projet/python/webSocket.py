@@ -75,13 +75,16 @@ class WebSocket(object) :
         await self.register(websocket)
         try:
             await self.notifierUtilisateurs()
+            await self.partie.interface.mettreAJour(self.partie)
             async for message in websocket:
                 data = json.loads(message)
                 if data["type"]=="chat":
                     await self.majChat(data["contenu"])
                     self.chat.append([data["contenu"],self.clientAvecWebsocket(websocket)])
+                elif data["type"]=="vote":
+                    self.votes.append([data["contenu"],self.clientAvecWebsocket(websocket)])
                 elif data["type"]=="jeu":
-                    await self.jeu(websocket,int(data["contenu"]))
+                    await self.jeu(websocket,int(data["contenu"])) 
         finally:
             await self.unregister(websocket)
 
@@ -89,12 +92,12 @@ class WebSocket(object) :
         return self.chat
 
     async def getChoix(self):
-        while(len(self.chat)==0):
+        while(len(self.votes)==0):
             await asyncio.sleep(0.5)
-        while ((not representsInt(self.chat[len(self.chat)-1][0]) or self.partie.prochainRole!=self.chat[len(self.chat)-1][1].joueur.role.__class__.__name__) and self.partie.prochainRole!="Village"):
+        while ((self.partie.prochainRole!=self.votes[len(self.votes)-1][1].joueur.role.__class__.__name__) and self.partie.prochainRole!="Village"):
             await asyncio.sleep(0.5)
-        temp=self.chat[len(self.chat)-1][0]
-        self.chat[len(self.chat)-1][0]="a"
+        temp=self.votes[len(self.votes)-1][0]
+        self.votes[len(self.votes)-1][0]="a"
         return temp
 
 
@@ -111,6 +114,7 @@ class WebSocket(object) :
         self.interface = []
         self.joueur = []
         self.partie = []
+        self.votes = []
         start_server = websockets.serve(self.utilisateur, "localhost", 6789)
 
         asyncio.get_event_loop().run_until_complete(start_server)
