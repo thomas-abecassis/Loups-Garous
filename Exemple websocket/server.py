@@ -6,10 +6,10 @@ import websockets
 class WebSocket(object) :
 
 
-    async def register(self,websocket):
+    def register(self,websocket):
         self.Clients.append(websocket)
 
-    async def unregister(self,websocket):
+    def unregister(self,websocket):
         self.Clients.remove(websocket)
 
     async def majChat(self,message):
@@ -18,7 +18,7 @@ class WebSocket(object) :
 
     async def ConnexionWebSocket(self,websocket, path): ## les attributs websocket et path sont donnés automatiquement par la bibliothèque
         
-        await self.register(websocket) ## l'objet websocket nous sert à faire la connexion avec un client, c'est avec cet objet 
+        self.register(websocket) ## l'objet websocket nous sert à faire la connexion avec un client, c'est avec cet objet 
         							   ## que l'on recoit(for message in websocket) et envoie(send) des informations
         try:
             async for message in websocket:
@@ -26,7 +26,7 @@ class WebSocket(object) :
                 await self.majChat(data["contenu"])
 
         finally:
-            await self.unregister(websocket) ## quand le client se déconnecte de la page on prend soint de l'enlever de la liste de client
+            self.unregister(websocket) ## quand le client se déconnecte de la page on prend soint de l'enlever de la liste de client
 
 
     def __init__(self):

@@ -31,9 +31,9 @@ class WebSocket(object) :
                 self.Utilisateur.remove(utilisateur)
                 self.joueur.append(utilisateur.joueur)
 
-    async def notifierUtilisateurs(self):
-        mes=json.dumps({"type":"nbUtilisateurs","contenu" : str(len(self.Utilisateur))})
-        await asyncio.wait([utilisateur.envoyerMessage(mes) for utilisateur in self.Utilisateur])
+    async def notifierUtilisateurs(self,cl):
+        mes=json.dumps({"type":"nbUtilisateurs","contenu" :"Bonjour "+ cl.joueur.nom +" vous êtes "+cl.joueur.role.devoile() })
+        await cl.envoyerMessage(mes)
 
     async def majEtat(self,listeEtat):
         mes=json.dumps({"type":"etatPartie","contenu" : {"jour" : self.partie.getJour(), "joueurs" : listeEtat}})
@@ -74,7 +74,7 @@ class WebSocket(object) :
         # register(websocket) sends user_event() to websocket
         await self.register(websocket)
         try:
-            await self.notifierUtilisateurs()
+            await self.notifierUtilisateurs(self.clientAvecWebsocket(websocket))
             await self.partie.interface.mettreAJour(self.partie)
             async for message in websocket:
                 data = json.loads(message)
