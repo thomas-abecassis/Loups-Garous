@@ -36,7 +36,7 @@ class WebSocket(object) :
                 self.unregister(websocket) ## quand le client se déconnecte de la page on prend soint de l'enlever de la liste de client
 
     async def majChat(self,message):
-        
+        print("compteur = "+ Clients.index(webSocket))
         mes=json.dumps({"contenu" : message}) ## on créer un json
         await asyncio.wait([client.send(mes) for client in self.Clients]) ##att que le message soit envoyé à tout le monde (qu'on envoie à nos clients)
 

@@ -8,11 +8,13 @@
     </head>
 
 <body>
-
-<div id="chat" class="box">
-</div>
+  <form method="post" >
+    <input type="text" name="pseudo" id="nom" placeholder="Pseudo" size="10 " maxlength="10" />
+    <input id="boutonPseudo" type="button" value="Ok">
+  </form>
+<div id="chat" class="box scroll "></div>
 <form method="post" >
-    <input type="text" name="pseudo" id="nomChat" placeholder="Message" size="30" maxlength="10" />
+    <input type="text" name="pseudo" id="nomChat" placeholder="Message" size="10" maxlength="60" />
     <input id="boutonChat" type="button" value="envoyer">
 </form>
 
