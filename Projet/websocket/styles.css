@@ -44,9 +44,21 @@ html,body{
 	margin:0;
 }
 
+.boutonVote{
+	width:50px !important;
+}
+
+.desactiver{
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  }
 
 #imagefondJour{
-    background: url(../files/images/paysage.svg);
+    background: url(../Projet/files/images/paysage.svg);
     width: 100%;
     height: 100vh;
 	background-size : cover;
@@ -56,7 +68,7 @@ html,body{
 }
 
 #imagefondNuit{
-    background: url(../files/images/nuit.jpg);
+    background: url(../Projet/files/images/nuit.jpg);
     width: 100%;
     height: 100vh;
     background-size : cover;
@@ -75,7 +87,7 @@ html,body{
 }
 
 .vivant{
-    color:green;
+    color:white;
 }
 
 #boxJoueurs{

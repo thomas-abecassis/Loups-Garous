@@ -1,5 +1,7 @@
 socket= new WebSocket('ws:/localhost:6789');
 
+var joueursHTML; //variable ici pour la rendre globale
+
 socket.onmessage= function(s) {
     data = JSON.parse(event.data);
     switch(data.type){
@@ -18,31 +20,46 @@ socket.onmessage= function(s) {
     case 'etatPartie':
         console.log(data.contenu);
         var nbJoueurs = document.getElementById("boxJoueurs").children.length;
+        var i=0;
+        joueursHTML=document.getElementById("boxJoueurs");
         if(nbJoueurs==0){
             data.contenu.joueurs.forEach(function(joueur) {
-                document.getElementById('boxJoueurs').innerHTML+="<div class=\" joueur \">"+ joueur[0]+"</div>";
+                //on créer une div 
+                var div = document.createElement("div");
+                div.setAttribute("class", "joueur");
+                div.innerHTML=joueur[0];
+                //on créer un bouton
+                var b = document.createElement("input");
+                b.setAttribute("type", "button");
+                b.setAttribute("class", "boutonVote");
+                //on lui rajoute un event
+                b.addEventListener('click',function(){
+                    vote(b);
+                });
+                //on rajoute le bouton dans la div
+                div.appendChild(b);
+                //pour finir on rajoute la div dans le boJoueurs
+                joueursHTML.appendChild(div);
+                i++;
             })}else{
                 var i=0;
-                var joueursHTML = document.getElementById("boxJoueurs");
+                joueursHTML = document.getElementById("boxJoueurs");
                 data.contenu.joueurs.forEach(function(joueur) {
                     if(joueur[1]){
                         joueursHTML.children[i].className= "joueur vivant";
                         }else{
                             joueursHTML.children[i].className="joueur mort ";
+                            joueursHTML.children[i].children[0].classList.add('desactiver');
                         }
                 i++;
             })
             }
         if(data.contenu.jour==false ){
-            if(document.getElementById('imagefondJour')===null){}
-            else{
-            document.getElementById('imagefondJour').id="imagefondNuit";}
-            }else {
-                if(document.getElementById('imagefondNuit')===null){}
-                else{
-                document.getElementById('imagefondNuit').id="imagefondJour";
-                }
-            }
+            if(document.getElementById('imagefondJour')!==null){document.getElementById('imagefondJour').id="imagefondNuit";}
+        }
+        else {
+            if(document.getElementById('imagefondNuit')!==null){document.getElementById('imagefondNuit').id="imagefondJour";}
+        }
     }
 }
 
@@ -63,5 +80,18 @@ function envoieMessageServeur(){
 
 
 }
+
+function vote(b){
+    var div=b.parentNode;
+    var i=0; 
+    while((div=div.previousSibling )!=null){ // ici je compte l'index du bouton sur lequel on clique par rapport à la boxJoueur
+        if( !div.classList.contains("mort")){ 
+            i++;
+        }
+    }
+    socket.send(JSON.stringify({type : "vote", contenu : i}));
+}
+
+
 
 window.onload=envoieMessageServeur();

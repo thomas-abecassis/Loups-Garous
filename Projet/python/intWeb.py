@@ -42,7 +42,7 @@ def getEtatsJoueurs(partie):
     l=[]
     for player in village : 
         if (player.vivant):
-            l.append([player.role.__class__.__name__,True])
+            l.append([player.nom,True])
         else :
-            l.append([player.role.__class__.__name__,False])
+            l.append([player.nom,False])
     return l
