@@ -8,7 +8,7 @@ class Voyante(object):
 
     async def pouvoir(self, partie):
         partie.prochainRole="Voyante"
-        await partie.interface.afficher(partie.aliveToStr())
-        await partie.interface.afficher("Sonder qui (index): ")
-        choix = await partie.interface.faireChoix(partie.alive)
-        await partie.interface.afficher("La voyante a sonde un " + choix.role.devoile())
+        await partie.interface.afficherAUnRole(partie.aliveToStr(),self)
+        await partie.interface.afficherAUnRole("Sonder qui (index): ",self)
+        choix = await partie.interface.faireChoix(partie.alive,partie.JoueursAvecRole(self))
+        await partie.interface.afficherAUnRole("La voyante a sonde un " + choix.role.devoile(),self)

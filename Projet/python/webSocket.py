@@ -21,15 +21,48 @@ class WebSocket(object) :
             mes=json.dumps({"type":"chat","contenu" : "désolé tu ne peux pas jouer car la partie est remplie"})
             await websocket.send(mes)
 
-    async def majChat(self,message):
+    async def majChat(self,message,ws):
+        client=self.clientAvecWebsocket(ws)
+        self.chat.append([message,client])
+
+        message=client.getNom()+ " >> " +message
         mes=json.dumps({"type":"chat","contenu" : message})
         await asyncio.wait([utilisateur.envoyerMessage(mes) for utilisateur in self.Utilisateur])
 
-    async def majChatLG(self,message):
+    async def majChatLG(self,message,ws):
+        client=self.clientAvecWebsocket(ws)
+        self.chat.append([message,client])
+
+        message=client.getNom() + " >> " + message
         mes=json.dumps({"type":"chat","contenu" : message})
         for utilisateur in self.Utilisateur:
             if (utilisateur.estLoupGarou()):
                 await utilisateur.envoyerMessage(mes)
+
+    async def majChatLGPartie(self,message):
+        mes=json.dumps({"type":"chat","contenu" : message})
+        for utilisateur in self.Utilisateur:
+            if (utilisateur.estLoupGarou()):
+                await utilisateur.envoyerMessage(mes)
+
+    async def majChatPartie(self,message):
+        mes=json.dumps({"type":"chat","contenu" : message})
+        for utilisateur in self.Utilisateur:
+            await utilisateur.envoyerMessage(mes)
+
+    async def majChatUnRole(self, message, role):
+        utilisateur=self.clientAvecRole(role)
+        if(utilisateur==False):
+            return
+        mes=json.dumps({"type":"chat","contenu" : message})
+        await utilisateur.envoyerMessage(mes)
+
+    async def majChatUnJoueur(self, message, joueur):
+        utilisateur=self.clientAvecJoueur(joueur)
+        if(utilisateur==False):
+            return
+        mes=json.dumps({"type":"chat","contenu" : message})
+        await utilisateur.envoyerMessage(mes)
 
     async def unregister(self,websocket):
         for utilisateur in self.Utilisateur:
@@ -87,10 +120,9 @@ class WebSocket(object) :
                 data = json.loads(message)
                 if data["type"]=="chat":
                     if(self.partie.getJour()):
-                        await self.majChat(data["contenu"])
-                        self.chat.append([data["contenu"],self.clientAvecWebsocket(websocket)])
+                        await self.majChat(data["contenu"],websocket)
                     else :
-                        await self.majChatLG(data["contenu"])
+                        await self.majChatLG(data["contenu"],websocket)
                 elif data["type"]=="vote":
                     self.votes.append([data["contenu"],self.clientAvecWebsocket(websocket)])
                 elif data["type"]=="jeu":
@@ -101,14 +133,18 @@ class WebSocket(object) :
     def getChat(self):
         return self.chat
 
-    async def getChoix(self):
+    async def getChoix(self,votant):
         while(len(self.votes)==0):
             await asyncio.sleep(0.5)
-        while ((self.partie.prochainRole!=self.votes[len(self.votes)-1][1].joueur.role.__class__.__name__) and self.partie.prochainRole!="Village"):
+        while (not self.votes[len(self.votes)-1][1].joueur in votant):
             await asyncio.sleep(0.5)
-        temp=self.votes[len(self.votes)-1][0]
-        self.votes[len(self.votes)-1][0]="a"
-        return temp
+        if(self.votes[len(self.votes)-1][0]!="a"):
+            temp=self.votes[len(self.votes)-1][0]
+            mes=json.dumps({"type":"chat","contenu" : "tu as voté contre "+ self.partie.alive[self.votes[len(self.votes)-1][0]].nom})
+            await self.votes[len(self.votes)-1][1].envoyerMessage(mes);
+            self.votes[len(self.votes)-1][0]="a"
+            votant.remove(self.votes[len(self.votes)-1][1].joueur)
+            return temp
 
 
 
@@ -133,6 +169,19 @@ class WebSocket(object) :
     def clientAvecWebsocket(self,ws):
         for utilisateur in self.Utilisateur:
             if utilisateur.memeWs(ws):
+                return utilisateur
+        return False
+
+
+    def clientAvecRole(self,role):
+        for utilisateur in self.Utilisateur:
+            if (utilisateur.memeRole(role)):
+                return utilisateur
+        return False
+
+    def clientAvecJoueur(self,joueur):
+        for utilisateur in self.Utilisateur:
+            if (utilisateur.memeJoueur(joueur)):
                 return utilisateur
         return False
 

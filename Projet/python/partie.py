@@ -32,7 +32,8 @@ class Partie(object):
 
     #Lance une partie
     async def playGame(self):
-        await self.printAllJoueur(self.playerbase)
+        # on l'enlève pour le web 
+        # await self.printAllJoueur(self.playerbase)
         await self.interface.afficher("\nLa partie commence!")
         await self.interface.mettreAJour(self)
         i = 0
@@ -92,12 +93,13 @@ class Partie(object):
 
     #Effectue le vote des LG
     async def voteLG(self):
-            vote = await self.interface.faireVote(self, self.LG, self.vill)
+            vote = await self.interface.faireVote(self, self.LG, self.alive)
             if (len(vote) == 1):
-                await self.interface.afficher("\nLes Loups-Garous ont décidés de manger " + vote[0].nom + "\n")
+                # Pour la version web il ne faut l'afficher que pour les lg
+                await self.interface.afficherPourLeslg("\nLes Loups-Garous ont décidés de manger " + vote[0].nom + "\n")
                 return (vote)
             else:
-                await self.interface.afficher("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
+                await self.interface.afficherPourLeslg("\nLes Loups-Garous ne se sont pas mis d'accord et ne mangeront personne\n")
                 return ([])
 
     #Revele les morts de la nuit et les morts du vote
@@ -170,3 +172,10 @@ class Partie(object):
         self.alive = self.getAlive(self.playerbase)
         self.LG = self.getLG(self.alive)
         self.vill = self.getVillage(self.alive)
+
+    def JoueursAvecRole(self,role):
+        ret=[]
+        for player in self.playerbase:
+            if(player.role==role):
+                ret.append(player)
+        return ret

@@ -55,10 +55,16 @@ socket.onmessage= function(s) {
             })
             }
         if(data.contenu.jour==false ){
-            if(document.getElementById('imagefondJour')!==null){document.getElementById('imagefondJour').id="imagefondNuit";}
+            if(document.getElementById('imagefondJour')!==null){
+                document.getElementById('imagefondJour').id="imagefondNuit";        
+                chat=document.getElementById('chat');
+                chat.innerHTML+="<div class=\"msgChat\" style=\" width=400px\">La nuit tombe et le village s\'endort </div>";}
         }
         else {
-            if(document.getElementById('imagefondNuit')!==null){document.getElementById('imagefondNuit').id="imagefondJour";}
+            if(document.getElementById('imagefondNuit')!==null){
+                document.getElementById('imagefondNuit').id="imagefondJour";}
+                chat=document.getElementById('chat');
+                chat.innerHTML+="<div class=\"msgChat\" style=\" width=400px\">Le village se réveille, il est temps pour les villageois de voter</div>";
         }
     }
 }

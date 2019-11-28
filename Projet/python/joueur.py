@@ -35,14 +35,19 @@ class Joueur(object):
         if self.role.devoile() == "Chasseur":
             await self.role.pouvoir(partie)
 
-    async def voter(self, partie, list):
-        await partie.interface.afficher(str(list))
-        await partie.interface.afficher("Voter contre (index): ")
-        choix = await partie.interface.faireChoix(list)
-        await partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
+    async def voter(self, partie, list,votant):
+        # on enlève pour le web
+        #await partie.interface.afficher(str(list))
+        await partie.interface.afficherAUnJoueur("Hop hop hop on vote",self)
+        choix = await partie.interface.faireChoix(list,votant)
+        #await partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
         return (choix)
 
-        
+    async def voterJour(self, partie, list,votant):
+        choix = await partie.interface.faireChoix(list,votant)
+        return (choix)
+
+
     
 def str(list):
     l=[]

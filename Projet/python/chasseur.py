@@ -9,10 +9,10 @@ class Chasseur(object):
 
     async def pouvoir(self, partie):
         partie.prochainRole="Chasseur"
-        await partie.interface.afficher(str(partie.alive))
-        await partie.interface.afficher("Tirer sur qui? (index)")
-        choix = await partie.interface.faireChoix(partie.alive)
-        await partie.interface.afficher("Le chasseur entraine dans sa mort " + choix.nom)
+        await partie.interface.afficherAUnRole(str(partie.alive),self)
+        await partie.interface.afficherAUnRole("Tirer sur qui? (index)",self)
+        choix = await partie.interface.faireChoix(partie.alive,partie.JoueursAvecRole(self))
+        await partie.interface.afficherAUnRole("Le chasseur entraine dans sa mort " + choix.nom,self)
         await choix.mourir(partie)
         
 def str(list):
