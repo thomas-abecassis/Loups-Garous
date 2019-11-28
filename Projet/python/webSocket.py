@@ -25,6 +25,12 @@ class WebSocket(object) :
         mes=json.dumps({"type":"chat","contenu" : message})
         await asyncio.wait([utilisateur.envoyerMessage(mes) for utilisateur in self.Utilisateur])
 
+    async def majChatLG(self,message):
+        mes=json.dumps({"type":"chat","contenu" : message})
+        for utilisateur in self.Utilisateur:
+            if (utilisateur.estLoupGarou()):
+                await utilisateur.envoyerMessage(mes)
+
     async def unregister(self,websocket):
         for utilisateur in self.Utilisateur:
             if utilisateur.memeWs(websocket):
@@ -32,13 +38,14 @@ class WebSocket(object) :
                 self.joueur.append(utilisateur.joueur)
 
     async def notifierUtilisateurs(self,cl):
+        if(cl==False):
+            return;
         mes=json.dumps({"type":"nbUtilisateurs","contenu" :"Bonjour "+ cl.joueur.nom +" vous êtes "+cl.joueur.role.devoile() })
         await cl.envoyerMessage(mes)
 
     async def majEtat(self,listeEtat):
         mes=json.dumps({"type":"etatPartie","contenu" : {"jour" : self.partie.getJour(), "joueurs" : listeEtat}})
         await asyncio.wait([utilisateur.envoyerMessage(mes) for utilisateur in self.Utilisateur])
-
 
     async def jeu(self,websocket,nb):
         global tour
@@ -54,7 +61,7 @@ class WebSocket(object) :
             await asyncio.wait([utilisateur.envoyerMessage(mes) for utilisateur in self.Utilisateur])        
         
         
-    async def utilisateur(self,websocket, path):
+    async def recoieData(self,websocket, path):
         
         if(not self.partieCree):
             self.partieCree=True
@@ -79,8 +86,11 @@ class WebSocket(object) :
             async for message in websocket:
                 data = json.loads(message)
                 if data["type"]=="chat":
-                    await self.majChat(data["contenu"])
-                    self.chat.append([data["contenu"],self.clientAvecWebsocket(websocket)])
+                    if(self.partie.getJour()):
+                        await self.majChat(data["contenu"])
+                        self.chat.append([data["contenu"],self.clientAvecWebsocket(websocket)])
+                    else :
+                        await self.majChatLG(data["contenu"])
                 elif data["type"]=="vote":
                     self.votes.append([data["contenu"],self.clientAvecWebsocket(websocket)])
                 elif data["type"]=="jeu":
@@ -115,7 +125,7 @@ class WebSocket(object) :
         self.joueur = []
         self.partie = []
         self.votes = []
-        start_server = websockets.serve(self.utilisateur, "localhost", 6789)
+        start_server = websockets.serve(self.recoieData, "localhost", 6789)
 
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
@@ -124,6 +134,7 @@ class WebSocket(object) :
         for utilisateur in self.Utilisateur:
             if utilisateur.memeWs(ws):
                 return utilisateur
+        return False
 
 def representsInt(s):
     try: 

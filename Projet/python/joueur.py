@@ -41,6 +41,8 @@ class Joueur(object):
         choix = await partie.interface.faireChoix(list)
         await partie.interface.afficher(self.nom + " a vote contre " + choix.nom)
         return (choix)
+
+        
     
 def str(list):
     l=[]

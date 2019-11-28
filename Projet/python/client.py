@@ -16,5 +16,8 @@ class Client(object):
 	def memeWs(self,ws):
 		return self.ws==ws
 
+	def estLoupGarou(self):
+		return self.joueur.role.devoile()=="Loup-Garou"
+
 	async def envoyerMessage(self,message):
 		await self.ws.send(message)
