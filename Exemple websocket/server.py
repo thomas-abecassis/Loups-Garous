@@ -32,7 +32,7 @@ class WebSocket(object) :
     def __init__(self):
         self.Clients=[] ## on initialise la liste où on va stocker les clients qui se connecte
 
-        start_server = websockets.serve(self.ConnexionWebSocket, "localhost", 10024) ## on lance le serveur, cette fonction prend en parametre :
+        start_server = websockets.serve(self.ConnexionWebSocket, "localhost", 7296) ## on lance le serveur, cette fonction prend en parametre :
         																			## une fonction à lancer, l'adresse sur laquelle heberger la connexion et le numéro de port
 
         asyncio.get_event_loop().run_until_complete(start_server)
