@@ -38,7 +38,6 @@ class Partie(object):
         await self.interface.mettreAJour(self)
         i = 0
         while (self.isFinished() == False):
-            await self.interface.afficher("\nNuit " + str(i) + "\n")
             self.jour=False
             await self.interface.mettreAJour(self)
             self.prochainRole="LoupGarou"
@@ -46,16 +45,13 @@ class Partie(object):
             vovo = self.getVovo(self.alive)
             if (vovo != None):
                 await vovo.role.pouvoir(self)    
-                await self.interface.afficher("\nJour " + str(i) + "\n")
-                self.jour=True
-                await self.interface.mettreAJour(self)
-            await self.revelerMorts(mort)
-            await self.interface.mettreAJour(self)
             if (self.isFinished() == False):
+                self.jour=True
+                await self.revelerMorts(mort)
+                await self.interface.mettreAJour(self)
                 self.prochainRole="Village"
                 mort = await self.voteVillage()
                 await self.revelerMorts(mort)
-                await self.interface.mettreAJour(self)
             i = i + 1
         await self.victoire()
 
