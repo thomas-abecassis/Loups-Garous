@@ -100,4 +100,17 @@ function vote(b){
 
 
 
-window.onload=envoieMessageServeur();
+window.onload=function(){
+    var form=document.getElementById("chatForm");
+    var inpChat=document.getElementById('nomChat');
+    form.addEventListener("submit",function(){
+        socket.send(JSON.stringify({type : "chat", contenu : inpChat.value}));
+        inpChat.value="";
+    });
+
+    var boutChat=document.getElementById('boutonChat');
+    boutChat.addEventListener("click",function(){
+        socket.send(JSON.stringify({type : "chat", contenu : inpChat.value}));
+        inpChat.value="";
+    });
+}
