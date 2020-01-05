@@ -73,7 +73,7 @@ class WebSocket(object) :
     async def notifierUtilisateurs(self,cl):
         if(cl==False):
             return;
-        mes=json.dumps({"type":"nbUtilisateurs","contenu" :"Bonjour "+ cl.joueur.nom +" vous êtes "+cl.joueur.role.devoile() })
+        mes=json.dumps({"type":"utilisateur","contenu" :"Bonjour "+ cl.joueur.nom +" vous êtes "+cl.joueur.role.devoile() })
         await cl.envoyerMessage(mes)
 
     async def majEtat(self,listeEtat):

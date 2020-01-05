@@ -5,7 +5,7 @@ var joueursHTML; //variable ici pour la rendre globale
 socket.onmessage= function(s) {
     data = JSON.parse(event.data);
     switch(data.type){
-    case 'nbUtilisateurs':
+    case 'utilisateur':
         compteur=document.getElementById('contenu');
         compteur.innerHTML+=data.contenu;
         break;
