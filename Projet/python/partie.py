@@ -44,15 +44,20 @@ class Partie(object):
             mort = await self.voteLG()
             vovo = self.getVovo(self.alive)
             if (vovo != None):
-                await vovo.role.pouvoir(self)    
+                await vovo.role.pouvoir(self) 
+            self.updateGame() 
             if (self.isFinished() == False):
                 self.jour=True
                 await self.revelerMorts(mort)
-                await self.interface.mettreAJour(self)
-                self.prochainRole="Village"
-                mort = await self.voteVillage()
-                await self.revelerMorts(mort)
+                self.updateGame()
+                if (self.isFinished() == False):
+                    await self.interface.mettreAJour(self)
+                    self.prochainRole="Village"
+                    mort = await self.voteVillage()
+                    await self.revelerMorts(mort)
+                    self.updateGame()
             i = i + 1
+        await self.interface.mettreAJour(self)
         await self.victoire()
 
     #Détermine la victoire
