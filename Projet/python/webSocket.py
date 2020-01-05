@@ -122,7 +122,8 @@ class WebSocket(object) :
                     if(self.partie.getJour()):
                         await self.majChat(data["contenu"],websocket)
                     else :
-                        await self.majChatLG(data["contenu"],websocket)
+                        if(self.clientAvecWebsocket(websocket).estLoupGarou()):
+                            await self.majChatLG(data["contenu"],websocket)
                 elif data["type"]=="vote":
                     self.votes.append([data["contenu"],self.clientAvecWebsocket(websocket)])
                 elif data["type"]=="jeu":
