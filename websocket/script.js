@@ -1,4 +1,4 @@
-socket= new WebSocket('ws:/51.77.151.118:6789');
+socket= new WebSocket('ws:/localhost:6789');
 
 var joueursHTML; //variable ici pour la rendre globale
 
