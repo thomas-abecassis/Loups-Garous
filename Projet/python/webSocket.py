@@ -107,7 +107,7 @@ class WebSocket(object) :
                 loop.create_task(self.partie.playGame())
                 self.partieLancee=True 
                 self.joueur=self.partie.playerbase.copy()
-            print("Partie Créée ! et lancée !")
+                print("Partie Créée ! et lancée !")
 
 
         
@@ -119,6 +119,7 @@ class WebSocket(object) :
             async for message in websocket:
                 data = json.loads(message)
                 if data["type"]=="chat":
+                    data["contenu"]=data["contenu"].replace('<','')
                     if(self.partie.getJour()):
                         await self.majChat(data["contenu"],websocket)
                     else :
