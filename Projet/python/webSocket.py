@@ -163,10 +163,11 @@ class WebSocket(object) :
         self.joueur = []
         self.partie = []
         self.votes = []
-        start_server = websockets.serve(self.recoieData, "localhost", 6789)
-
+        start_server = websockets.serve(self.recoieData,"", 6789)
+        print("test1")
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
+        print("test2")
 
     def clientAvecWebsocket(self,ws):
         for utilisateur in self.Utilisateur:
