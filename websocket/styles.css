@@ -33,7 +33,7 @@ div,from{
 	border :3px solid;
 }
 
-#invisible{
+.invisible{
 	display:none;
 }
 
@@ -52,7 +52,7 @@ html,body{
   pointer-events: none;
   cursor: not-allowed;
   opacity: 0.65;
-  filter: alpha(opacity=65);
+  filter: alpha(opacity=65); /*extension propriétaire inconnue mais utile */
   -webkit-box-shadow: none;
   box-shadow: none;
   }
@@ -118,7 +118,7 @@ input[type="button" i]{
 	background-color: #030f3300 !important;
 }
 
-/* Scroll */
+/* Scroll */ /*extension propriétaire inconnue mais utile */
 .Ascroll::-webkit-scrollbar {
 	width: 10px;
   }

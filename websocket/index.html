@@ -1,20 +1,21 @@
 <!DOCTYPE html>
- <!-- Materialize: Compiled and minified CSS -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
- <link rel="stylesheet" type="text/css" href="../Projet/css/stylesMenu.css">
- <link rel="stylesheet" type="text/css" href="styles.css">
+ 
 
 <html>
 <head>
   <title>Interface jeu</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <!-- Materialize: Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <link rel="stylesheet" type="text/css" href="../Projet/css/stylesMenu.css">
+ <link rel="stylesheet" type="text/css" href="styles.css">
 <body>
   <header>
     <nav   id="menu" class="nav-wraper"><!---->
 
       
-      <img href="#index.html" id="logo" src="https://cdn.pixabay.com/photo/2014/03/25/15/24/wolf-296748_1280.png"alt="Le logo.">
+      <a href="#index.html"> <img  id="logo" src="https://cdn.pixabay.com/photo/2014/03/25/15/24/wolf-296748_1280.png" alt="Le logo."></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="../Projet/html/index.html">Accueil</a></li>
         <li><a href="./déconnexion.html">Déconnexion</a></li>
@@ -38,7 +39,7 @@
                 <input id="boutonChat" type="button" value="envoyer">
             </form>
       
-          <form method="post" id="invisible" >
+          <form method="post" class="invisible" >
                 <input type="text" name="pseudo" id="nomJeu" placeholder="Jeu" size="30" maxlength="10" />
                 <input id="boutonJeu" type="button" value="Bouton cliquer">
             </form>
@@ -47,7 +48,7 @@
       
     </div>
 
-  <div id="invisible"> <!--Grand jeu-->
+  <div class="invisible"> <!--Grand jeu-->
   Le superbe jeu du compteur :
   <div id="jeu"></div>
   </div>
@@ -55,6 +56,6 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="script.js"></script>
+<script  src="script.js"></script> <!-- type="text/javascript" non necessaire -->
 </body>
 </html>
